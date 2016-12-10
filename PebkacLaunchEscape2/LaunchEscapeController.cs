@@ -16,6 +16,10 @@ namespace PebkacLaunchEscape2
         [KSPField(isPersistant = true, guiActive = false)]
         public bool hasPitchControl = false;
 
+        // does the LES wait until the pod is pointed retro before jettisoning itself?
+        [KSPField(isPersistant = true, guiActive = false)]
+        public bool jettisonsToRetro = false;
+
         #region Abort status/modes
 
         // has the abort command been given?
@@ -79,6 +83,12 @@ namespace PebkacLaunchEscape2
         private ModuleEngines _escapeEngine;
         private ModuleEngines _pitchEngine;
         private ModuleEngines _jettisonEngine;
+
+        #endregion
+
+        #region Decouple
+
+        private ModuleDecouple _lesDecoupler;
 
         #endregion
 
@@ -194,11 +204,20 @@ namespace PebkacLaunchEscape2
                 _liftingSurface = GetLiftingSurface();
             }
 
+            // get the decoupler
+            _lesDecoupler = part.FindModuleImplementing<ModuleDecouple>();
+
+            if (_lesDecoupler == null)
+            {
+                Debug.LogError(string.Format("{0}: {1}: {2}", _myModTag, part.name, "Did not find a decoupler on the LES!"));
+            }
+
         }
 
         // fires when part is staged
         public override void OnActive()
         {
+            Debug.Log(string.Format("{0}: {1}: {2}", _myModTag, part.name, "Calling DoJettison from OnActive()"));
             DoJettison();
         }
 
@@ -254,6 +273,7 @@ namespace PebkacLaunchEscape2
 
             if (hasAborted && CheckCanAutoJettison())
             {
+                Debug.Log(string.Format("{0}: {1}: {2}", _myModTag, part.name, "Calling DoJettison from FixedUpdate()"));
                 DoJettison();
             }
         }
@@ -278,6 +298,8 @@ namespace PebkacLaunchEscape2
 
                 canardDeployTime = hasPitchControl ? _escapeEngineStartTime + canardDelaySeconds : 0;
                 jettisonTime = !hasPitchControl ? _escapeEngineStartTime + jettisonDelaySeconds : 0;
+
+                Debug.Log(string.Format("{0}: {1}: Setting Jettison Time, _escapeEngineStartTime = {2}, jettisonTime = {3}", _myModTag, part.name, _escapeEngineStartTime, jettisonTime));
             }
         }
 
@@ -298,10 +320,11 @@ namespace PebkacLaunchEscape2
 
         private void ActivateEscapeEngine()
         {
+            
             if (_escapeEngineStartTime <= 0)
             {
                 _escapeEngineStartTime = Planetarium.GetUniversalTime();
-                _escapeEngine.Activate();
+                if (_escapeEngine != null) _escapeEngine.Activate();
             }
         }
 
@@ -310,7 +333,7 @@ namespace PebkacLaunchEscape2
             if (_pitchEngineStartTime <= 0)
             {
                 _pitchEngineStartTime = Planetarium.GetUniversalTime();
-                _pitchEngine.Activate();
+                if (_pitchEngine != null) _pitchEngine.Activate();
             }
         }
 
@@ -357,17 +380,22 @@ namespace PebkacLaunchEscape2
         [KSPEvent(guiName = "Jettison LES", guiActive = true)]
         public void DoJettison()
         {
-            
-            if (part.Modules.Contains("ModuleDecouple"))
+            Debug.Log(string.Format("{0}: {1}: {2}", _myModTag, part.name, "Do Jettison!"));
+
+            if (_lesDecoupler != null)
             {
                 try
                 {
-                    part.FindModulesImplementing<ModuleDecouple>().FirstOrDefault().Decouple();
+                    _lesDecoupler.Decouple();
                 }
                 catch (System.Exception x)
                 {
                     Debug.LogError(string.Format("{0} ERROR: {1}", _myModTag, x.Message));
                 }
+            }
+            else
+            {
+                Debug.LogError(string.Format("{0}: {1}: {2}", _myModTag, part.name, "Did not find a decoupler on the LES!"));
             }
 
             ActivateJettisonEngine();
@@ -383,7 +411,7 @@ namespace PebkacLaunchEscape2
             {
                 return false;
             }
-            else if (hasPitchControl)
+            else if (hasPitchControl || jettisonsToRetro)
             {
                 // is the vessel pointed within 5 degrees of retrograde?
                 _progradev = vessel.GetSrfVelocity();
@@ -397,6 +425,9 @@ namespace PebkacLaunchEscape2
             else
             {
                 // has the scheduled time passed?
+                //var jettisonTimePassed = Planetarium.GetUniversalTime() >= jettisonTime;
+                //Debug.Log(string.Format("{0}: {1}: {2} {3}", _myModTag, part.name, "In CheckCanAutoJettison(): jettisonTimePassed = ", jettisonTimePassed));
+                
                 return Planetarium.GetUniversalTime() >= jettisonTime;
             }
         }
