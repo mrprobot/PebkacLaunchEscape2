@@ -40,7 +40,7 @@ namespace PebkacLaunchEscape2
 
         // for escape systems without pitch control, the delay
         // in seconds, between abort command and jettison of LES
-        [KSPField(isPersistant = true, guiActive = false)]
+        [KSPField(isPersistant = true, guiActive = true)]
         public float jettisonDelaySeconds = 10;
 
         // for escape systems without pitch control, the
@@ -411,7 +411,7 @@ namespace PebkacLaunchEscape2
             {
                 return false;
             }
-            else if (hasPitchControl || jettisonsToRetro)
+            else if (hasPitchControl || j)
             {
                 // is the vessel pointed within 5 degrees of retrograde?
                 _progradev = vessel.GetSrfVelocity();
