@@ -1,0 +1,64 @@
+PEBKAC Industries Launch Escape System (PKI-LES), v.1.3.0.0
+
+For KSP 1.3.x, June 20, 2017.
+
+This add-on is a set of parts I created because I was a little dissatisfied by the stock Launch Escape System (LES). The PEBKAC Industries LES (PKI-LES) is designed to more or less simulate the Apollo and Mercury LES's used in real life. 
+
+The LES for the 3-naut capsule features a totally non-functional Boost Protective Cover (BPC), launch escape motor, tower jettison motor and a small pitch control motor/nosecone and canard assembly. The canard assembly deploys roughly 8 seconds after the launch escape motor runs out of propellant and serves to help orient the escaping CM toward retrograde. It now includes a science experiment to simulate the "Q-ball", which contained atmospheric/aerodynamic sensors which were part of Apollo's "Emergency Detection System".
+
+The LES for the 1-naut capsule is modeled after the one from NASA's Mercury capsule. It didn't have any pitch motor or canards.
+
+The included plugin allows you to automatically conduct abort procedures. Just add the parts, hit the "ABORT" key and everything will take care of itself. Use staging to jettison the LES after a successful launch. Or you can add the jettison command to an action group if you prefer.
+
+I based all of the non-performance-related details (cost, tech-tree, etc) of the PKI-LES on the stock parts. Many of the other details were tweaked to be more realistic. One big difference is that the PKI-LES has a much total thrust than the stock part from Squad. The mass (and centers of mass) of the parts were extrapolated from the Apollo and Mercury LES and scaled to be proportional to a "stock" CM assembly. I tweaked the aerodynamic properties to be (IMHO anyway) closer to reality. The end result is a more or less realistic flight profile. From the launchpad, the included example craft should reach the ocean upon initiating an abort. Also included in this version is a LES for the 3-naut capsule which has no BPC. Aside from this visual change, the part should function identically to the other Mk2 LES.
+
+The download includes a sandbox save-game which has two example craft using stock parts showing how the PKI-LES is supposed to be assembled and configured.
+
+Finally, if you play career-mode, you should eventually get some flight-test contracts for the PKI-LES parts.
+
+New to this version:
+
+- recompiled for 1.3
+
+Some future plans:
+
+- add tweakable for time delay between abort initiation and jettison of LES
+- make the aft BPC for the Mk2 LES look more like an actual BPC
+- add RealPlume support or else just make my own exhaust FX
+- any suggestions or requests?
+
+Licensing: 
+
+I reserve all rights to this add-on. If you want to re-use or modify these parts or my code for derivative purposes, just drop me a line here and I'm sure we can work something out. This license expires and the add-on becomes public domain if I fail to respond to queries in the addon's release thread at http://forum.kerbalspaceprogram.com within a period of six months. I reserve all rights (present and future) to the name PEBKAC Industries.
+
+This addon includes art assets created by MP_Nazari for the Hot Rockets addon. See the license file in the Gamedata/MP_Nazari/FX folder for details.
+
+If you have suggestions for improvement or would like me to try to incorporate specific features, let me know and I'll see what I can do.
+
+Thanks, and have fun!  Hopefully your Kerbals will never need to use these parts!
+
+
+HOW TO USE THE PLUGIN WITH OTHER Launch Escape parts:
+
+1: You will need to modify the part config files for any part that is involved in the abort procedures. Each part will need a reference to the ModulePebkacLesController2 plugin:
+
+    MODULE
+    {
+		name = ModulePebkacLesController2
+		hasPitchControl = False
+		stagingEnabled = False    
+    }	
+
+    Change staging enabled to true for the part that jettisons the LES if you want to use staging to jettison the LES
+
+2: Any engine or decoupler modules in the parts can (should? must?) be set to stagingEnabled = False to make staging setup easier.
+
+3: The engine modules for your parts need to have specific engineIDs so that the PEBKAC code can find them. The escape motor needs engineID = LES_Escape and the jettison motor needs engineID = LES_Jettison. If you have a pitch control motor its ID is LES_PitchControl. For example:
+
+    MODULE
+    {
+    	name = ModuleEnginesFX  // or can use ModuleEngines if you prefer the old FX
+		engineID = LES_Escape
+		powerEffectName = les_running
+    	thrustVectorTransformName = thrustTransform
+	etc . . . 

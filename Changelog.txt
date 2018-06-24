@@ -1,0 +1,53 @@
+1.4.0
+	Adoption by Linuxgurugamer
+	Moved the MP_Nazari folder into the Pebkac folder for ease of building.  HotRockets is very old, and no one is using it in current ksp
+	Added assembly version to dll
+	Added deploy.bat 
+	Added buildRelease.bat
+	Added jenkins config
+	delete old PebkacLaunchEscape folder
+	Added folder containing all files and assets used in making this.  Lots of good historical documentation 
+
+	Added second attachment node to the Mk2 towers
+	Added MM config to allow stacking for the stock Mk16 and Mk25 parachutes
+
+1.3.1
+	Thanks to Synthesis for pointing out that I needed to update the agency.cfg so that contracts would no longer be missing the agency title. No other changes
+
+1.3.0.1
+	Recompiled for 1.3
+
+	I have done no localization. I don't plan to, but if you want a localized version, drop me a line on the KSP forums and we will figure it out.
+
+	Note: this is an update to 1.3.0.0 (which I will remove shortly) which makes only minor additional changes to instructions and .Version file.
+
+1.3.0
+	Recompiled for 1.3
+
+1.2.2.2
+	Tweaked the plugin code for compatibility with SDHI SMS mod. LES without pitch control can now be configured to jettison only when pointed retrograde
+
+1.2.0.1
+	the LES for the Mk2 is now a single part
+	heavily reworked textures, should use a lot less memory and make fewer draw calls
+	aborts above 3km altitude no longer fire the pitch motor
+	LES part is now is correctly aligned with default capsule orientation in the VAB
+	added a ModuleScienceExperiment to the Mk2 LES
+
+	confirmed working with KSP 1.2.1 on 2016-11-6
+
+1.1.3.2
+	Added new parts:
+		new escape engine part with no BPC for stock Mk1-2 pod
+		new escape engine part to match FASA Apollo CM 
+	Added .version file for AVC
+	Added instructions.txt 
+	Thanks to linuxgurugamer for adding this to CKAN!
+	
+1.1.3.1
+	Jettison of LES is now optionally stage-able.
+	Added PEBKAC Heavy Industries agency and ability to receive flight-test contracts in career mode.
+	reduced cost of Mk1 LES
+
+1.1.3
+	Initial release of version 2

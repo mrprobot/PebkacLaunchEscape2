@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/KSP_NoseCone.unity
+  isLoaded: 1
+  isActive: 1

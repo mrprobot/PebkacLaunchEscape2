@@ -1,0 +1,18 @@
+
+=======================================
+
+HotRockets
+
+A replacement for engine particle FX
+
+=======================================
+
+Release 1.0x
+
+License:
+
+HotRockets Art Assets: http://creativecommons.org/licenses/by-nc/4.0/
+author: Nazari
+contact: Nazari1382 on Official KerbalSpaceProgram.com forum 
+also on reddit: Nazari1382
+

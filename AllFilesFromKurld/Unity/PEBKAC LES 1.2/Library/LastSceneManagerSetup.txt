@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Mk2_NoBPC.unity
+  isLoaded: 1
+  isActive: 1

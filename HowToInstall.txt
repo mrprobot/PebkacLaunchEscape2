@@ -1,0 +1,8 @@
+To install the PEBKAC Industries Launch Escape System:
+
+1) Copy the contents of the GameData folder inside this archive to the GameData folder inside your KSP install.
+2) (optional) Copy the contents of the Saves folder to the saves folder inside your KSP install.
+
+The savegame files include example spacecraft that show how the LES can be used with the stock Mk1 and Mk1-2 capsules.
+
+Thanks and have fun!
