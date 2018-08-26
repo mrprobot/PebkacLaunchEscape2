@@ -1,3 +1,6 @@
+1.4.0.1
+	Fixed URL in .version file
+
 1.4.0
 	Adoption by Linuxgurugamer
 	Moved the MP_Nazari folder into the Pebkac folder for ease of building.  HotRockets is very old, and no one is using it in current ksp
