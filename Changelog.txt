@@ -1,3 +1,6 @@
+1.4.0.2
+	Version bump for 1.5 rebuild
+
 1.4.0.1
 	Fixed URL in .version file
 
