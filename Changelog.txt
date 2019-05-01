@@ -1,3 +1,11 @@
+1.4.1.1
+	Added missing bottomup node to the small Mk16 parachute
+	Added stagingIcon to the Mk1
+	Updated the tags for the Mk1
+	Known issue:  If the engine is too close to the bottom of the Mk1, then it
+	will be blocked and the Mk1 will explode from heat.  Only an issue for the
+	Flea and FL-T100/FL-T200 tanks
+
 1.4.1
 	Added missing bulkheadProfiles
 	
