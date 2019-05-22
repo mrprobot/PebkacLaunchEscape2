@@ -1,3 +1,6 @@
+1.4.1.2
+	Slightly adjusted the bottomup noad on theMk16 paracute
+
 1.4.1.1
 	Added missing bottomup node to the small Mk16 parachute
 	Added stagingIcon to the Mk1
